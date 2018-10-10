@@ -8,26 +8,28 @@ index++;
 function countindex()
     {
         
-       // console.log(record);
+       // console.log(record);  2
     for(let i=0;i<record.size;i++)
     {   
       
         if(record.get(i).indexOf("check")!=-1)
         {   //
            // console.log(record.get(i));
-            if(record.get(i-1).split(" ")[0]===record.get(i).split(" ")[0])
+            if((record.get(i-1).split(" ")[0]===record.get(i).split(" ")[0])
+            &&(nindex!==record.size-1)&&(record.get(i-1).split(" ")[1]
+            !==record.get(i).split(" ")[1]))
             {
                 
                 record.delete(i);
                 //console.log(record);
             }
             
-        }
+        }   
+    }
+    console.log(record)
         index=record.size;
         nindex=index-1;
         
-        
-    }
     }
  
     // add todo list, delete todolist, select todoitem 
@@ -41,7 +43,11 @@ function countindex()
        
        var prevstate=record.get(nindex-1);
        var item=nowstate.split(" ")[0];
-       
+       if(nowstate.indexOf("undo")!=-1)
+       {
+           return;
+       }
+       else{
        if(nowstate.indexOf("init")!=-1)
         {
             return ;
@@ -73,13 +79,88 @@ function countindex()
            
            undoDelete(false,nowstate);
         }
+        if(record.get(nindex).indexOf("redo")!=-1)
+        {
+           var arr= record.get(nindex).split(" ");
+           let str="";
+           for(let i=0;i<arr.length-1;i++)
+           {
+            str+=arr[i]+" ";
+           }
+           str+="undo";
+           record.set(nindex,str);
+        }
+        else{
+        record.set(nindex,record.get(nindex)+" undo");
+        }
     nindex--;
+    }
+    
     //console.log(nindex);
 }
     function redo()
     {
        
-
+        var nowstate=record.get(nindex);
+        var nextstate;
+        var item;
+       if(nindex+1<record.size)
+        {
+            nextstate=record.get(nindex+1);
+            item=nextstate.split(" ")[0];
+        }
+        else{
+            return;
+        }
+        
+        if(nextstate.indexOf("redo")!=-1)
+        {
+            return;
+        }
+        else{
+        
+          if(nextstate.indexOf("add")!=-1)
+         {   
+            
+             
+             undoDelete(false,nextstate);
+         }
+         else if(nextstate.indexOf("check visible")!=-1)
+         {
+             
+             document.getElementById(item).children[1].style.visibility="visible";
+         }
+         else if(nextstate.indexOf("check hidden")!=-1)
+         {
+            
+             document.getElementById(item).children[1].style.visibility="hidden";
+         }
+         else if(nextstate.indexOf("delete visible")!=-1)
+         {      
+             
+             document.getElementById("todo_list").removeChild(document.getElementById(item));
+         }
+         else if(nextstate.indexOf("delete hidden")!=-1)
+         {   
+            
+            document.getElementById("todo_list").removeChild(document.getElementById(item));
+         }
+         if(nextstate.indexOf("undo")!=-1)
+         {
+            var arr=nextstate.split(" ");
+            let str="";
+            for(let i=0;i<arr.length-1;i++)
+            {
+             str+=arr[i]+" ";
+            }
+            str+="redo";
+            record.set(nindex+1,str);
+         }
+         else{
+         record.set(nindex+1,record.get(nindex+1)+" redo");
+         }
+     nindex++;
+     }
     }
 
 
@@ -96,6 +177,7 @@ function countindex()
     //console.log(record.get(2).indexOf("check"));
     
     undo();
+    console.log(record);
    // console.log("ds");
 }
 else if(e.keyCode===89&&e.ctrlKey)
@@ -103,6 +185,7 @@ else if(e.keyCode===89&&e.ctrlKey)
     console.log("you press crtl+Y");
     
     redo();
+    console.log(record);
 }
 
 
@@ -181,10 +264,12 @@ for(let i=0;i<lis.length;i++)
                 countindex();
                
             }
-            else{
+            else if(lis[i].getElementsByClassName("check")[0].style.visibility==="visible")
+            {
                 this.getElementsByClassName("check")[0].style.visibility="hidden";
-                
+               
                 record.set(index,this.id+" check hidden");
+                console.log(record);
                 countindex();
             }
             
@@ -247,7 +332,7 @@ function undoDelete(flag,nowstate)
 
    
    let delete_index=nowstate.split(" ")[0].split("m")[1]; // delete node id 
-   console.log(delete_index);
+   //console.log(delete_index);
    //console.log(delete_index);
    if(document.getElementsByTagName("li").length===0)
    {    
