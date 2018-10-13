@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css"  href="main.css">
-  <script type="text/javascript" src="main.js">
-  </script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script type="text/javascript" src="main.js">
+    </script>
 </head>
+
 <body onload="AddCheckAndDelete()
 check_action()
-delete_action()" >
-    <div class="Adddiv" >
-  
-    <h2 >My todo list</h2>
-    <input type="text" placeholder="Input here..." id="input_txt"/>
-    <span class="addbtn"  onclick="Addaction()">Add</span>
-    
-    
+delete_action()">
+    <div class="Adddiv">
+
+        <h2>My todo list</h2>
+        <input type="text" placeholder="Input here..." id="input_txt" />
+        <span class="addbtn" onclick="addAction()">Add</span>
+
+
     </div>
-    <div><h2 >To Do List</h2> </div>
     <div>
-        <ul id="todo_list" >
-            
-            <li id="todo_item1" >3</li>
-        
-            <li id="todo_item2" >1</li>
-        
+        <h2>To Do List</h2>
+    </div>
+    <div>
+        <ul id="todo_list">
+            <li style="visibility: hidden"></li>
+            <li id="todo item1">do homework</li>
+
+            <li id="todo item2">submit homework</li>
+
         </ul>
-        
+
     </div>
 </body>
 
