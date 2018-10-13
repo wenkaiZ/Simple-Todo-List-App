@@ -9,23 +9,23 @@ function countindex()
     {
         
        // console.log(record);  2
-    for(let i=0;i<record.size;i++)
-    {   
+    // for(let i=0;i<record.size;i++)
+    // {   
       
-        if(record.get(i).indexOf("check")!=-1)
-        {   //
-           // console.log(record.get(i));
-            if((record.get(i-1).split(" ")[0]===record.get(i).split(" ")[0])
-            &&(nindex!==record.size-1)&&(record.get(i-1).split(" ")[1]
-            !==record.get(i).split(" ")[1]))
-            {
+    //     if(record.get(i).indexOf("check")!=-1)
+    //     {   //
+    //        // console.log(record.get(i));
+    //         if((record.get(i-1).split(" ")[0]===record.get(i).split(" ")[0])
+    //         &&(nindex!==record.size-1)&&(record.get(i-1).split(" ")[1]
+    //         !==record.get(i).split(" ")[1]))
+    //         {
                 
-                record.delete(i);
-                //console.log(record);
-            }
+    //             record.delete(i);
+    //             //console.log(record);
+    //         }
             
-        }   
-    }
+    //     }   
+    // }
     console.log(record)
         index=record.size;
         nindex=index-1;
@@ -248,14 +248,15 @@ for(let i=0;i<lis.length;i++)
 {   
     
     lis[i].onclick=function(){
+        //console.log("check");
         
-        if(lis[i]===undefined)
+        if(this===undefined)
         {
           return;
         } // console.log(lis[i].children[1].style.visibility);
        
        else{
-        if(lis[i].getElementsByClassName("check")[0].style.visibility==="hidden")
+        if(this.getElementsByClassName("check")[0].style.visibility==="hidden")
             {   
                 
                 this.getElementsByClassName("check")[0].style.visibility="visible";
@@ -264,12 +265,12 @@ for(let i=0;i<lis.length;i++)
                 countindex();
                
             }
-            else if(lis[i].getElementsByClassName("check")[0].style.visibility==="visible")
+            else if(this.getElementsByClassName("check")[0].style.visibility==="visible")
             {
                 this.getElementsByClassName("check")[0].style.visibility="hidden";
                
                 record.set(index,this.id+" check hidden");
-                console.log(record);
+                //console.log(record);
                 countindex();
             }
             
