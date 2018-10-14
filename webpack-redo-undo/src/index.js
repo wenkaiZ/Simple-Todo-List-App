@@ -284,8 +284,7 @@ for(let i=0;i<lis.length;i++)
 
 
 //add a new to do item for the to do item list
-function Addaction()
-
+function Addaction  ()
 {
     var inputTxt=document.getElementById("input_txt").value;
     if(inputTxt.trim()=="")
@@ -474,4 +473,3 @@ function redoAdd(flag,nowstate)
     check_action();
     delete_action();
 }
-
