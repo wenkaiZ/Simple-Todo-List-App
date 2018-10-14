@@ -1,15 +1,24 @@
 import _ from 'lodash';
+require('./index.css');
+var $ = require('jquery');
 
-import css from './index.css';
+//$('body').html('Hello');
 
+//var $=('jquery');
 
+//import template from './index.html';
 window.onload=function()
 {
-   AddCheckAndDelete();
-check_action();
-delete_action();
+    AddCheckAndDelete();
+    check_action();
+    delete_action();
+    $("#addBtn").on("click",Addaction);
+    
 }
 
+//document..addEventListener("onclick",Addaction);
+
+//$("button").addEventListener("click",Addaction());
 var record=new Map();
 var index=0;
 var id=3;
@@ -275,7 +284,8 @@ for(let i=0;i<lis.length;i++)
 
 
 //add a new to do item for the to do item list
-window.addAction=function ()
+function Addaction()
+
 {
     var inputTxt=document.getElementById("input_txt").value;
     if(inputTxt.trim()=="")
@@ -465,9 +475,3 @@ function redoAdd(flag,nowstate)
     delete_action();
 }
 
-module.exports = {
-    AddCheckAndDelete:AddCheckAndDelete,
-    check_action:check_action,
-    delete_action:delete_action,
-    addAction:addAction,
-};
